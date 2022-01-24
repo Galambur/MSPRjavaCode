@@ -1,18 +1,16 @@
 package gosecuri;
 
-import java.awt.Desktop;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GoSecuri {
 
     public static void main(String[] args) throws Exception {
-        var directory = "D:\\Documents\\EPSI\\B3\\MSPRs\\Concevoir_et_tester_des_solutions_applicatives\\RepoGit\\";
+        // generation des fichiers de staff
+        var directory = "/D:/var/www/html/";
         var employes = new ArrayList<Staff>();
         
         // récupérer la liste de staff
@@ -23,7 +21,7 @@ public class GoSecuri {
             String str;
             while ((str = br.readLine()) != null){
                 // str = le nom du staff
-                File staffFile = new File(directory + "\\staff\\" + str + "\\" + str + ".txt");
+                File staffFile = new File(directory + "/staff/" + str + "/" + str + ".txt");
                 BufferedReader brStaff = new BufferedReader(new FileReader(staffFile));
                 
                 var nom = brStaff.readLine();
@@ -43,13 +41,18 @@ public class GoSecuri {
                 System.out.println(staff.toString());
                 
                 // boucle sur tous les staff pour créer le fichier html dans un dossier associé
-                staff.SetPathHtml(directory + "\\staff\\" + str + "\\" + str + ".html");
-                staff.SetPathImage(directory + "\\staff\\" + str + "\\" + str + ".jpg");
+                staff.SetPathHtml(directory + "staff/" + str + "/" + str + ".html");
+                staff.SetPathImage(directory + "staff/" + str + "/" + str + ".jpg");
+                
+                // generer les fiches salaries
                 HtmlGenerator.generateHtml(staff);
                 
                 employes.add(staff);
                 brStaff.close();
             }
+            // generer l'index
+            HtmlGenerator.generateIndexHtml(employes);
+            
             br.close();
         } catch(Exception e){
             throw e;
