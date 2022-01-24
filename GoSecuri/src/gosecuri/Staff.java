@@ -8,6 +8,8 @@ public class Staff {
     public String Poste;
     public String Mdp;
     public List<String> Materiel;
+    public String PathHtml;
+    public String PathImage;
 
     public Staff(String nom, String prenom, String poste, String mdp, List<String> materiels) {
         this.Nom = nom;
@@ -20,5 +22,13 @@ public class Staff {
     @Override
     public String toString() {
         return "Staff{" + "Nom=" + Nom + ", Prenom=" + Prenom + ", Poste=" + Poste + ", Mdp=" + Mdp + ", Materiel=" + Materiel + '}';
+    }
+    
+    public void SetPathHtml(String path) {
+        this.PathHtml = path;
+    }
+    
+    public void SetPathImage(String path){
+        this.PathImage = path;
     }
 }

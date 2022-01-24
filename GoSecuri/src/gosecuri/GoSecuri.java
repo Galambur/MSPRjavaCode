@@ -31,6 +31,8 @@ public class GoSecuri {
                 var poste = brStaff.readLine();
                 var mdp = brStaff.readLine();
                 
+                // saut de ligne
+                brStaff.readLine();
                 List<String> materiels = new ArrayList<>();
                 String mat;
                 while ((mat = brStaff.readLine()) != null){
@@ -39,6 +41,12 @@ public class GoSecuri {
 
                 var staff = new Staff(nom, prenom, poste, mdp, materiels);
                 System.out.println(staff.toString());
+                
+                // boucle sur tous les staff pour créer le fichier html dans un dossier associé
+                staff.SetPathHtml(directory + "\\staff\\" + str + "\\" + str + ".html");
+                staff.SetPathImage(directory + "\\staff\\" + str + "\\" + str + ".jpg");
+                HtmlGenerator.generateHtml(staff);
+                
                 employes.add(staff);
                 brStaff.close();
             }
@@ -47,39 +55,6 @@ public class GoSecuri {
             throw e;
         }
         
-        // récupérer la liste de matériel
-        /// on va dans le dossier staff
         
-        
-        
-        
-        // boucle sur tous les staff pour créer le fichier txt dans un dossier associé
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        // scratch creation fichier
-        /* File f = new File("source.html");
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-            bw.write("<html><body><h1>Blah, Blah!</h1>");
-            bw.write("<textarea cols=75 rows=10>");
-            for (int ii=0; ii<20; ii++) {
-                bw.write("Blah blah..");
-            }
-            bw.write("</textarea>");
-            bw.write("</body></html>");
-            bw.close();
-        } catch(Exception e){
-            throw e;
-        }*/
     }
 }
