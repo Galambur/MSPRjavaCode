@@ -23,17 +23,17 @@ public class GoSecuri {
             String str;
             while ((str = br.readLine()) != null){
                 // str = le nom du staff
-                File staffFile = new File(directory + str + "\\" + str + ".txt");
+                File staffFile = new File(directory + "\\staff\\" + str + "\\" + str + ".txt");
                 BufferedReader brStaff = new BufferedReader(new FileReader(staffFile));
                 
                 var nom = brStaff.readLine();
                 var prenom = brStaff.readLine();
-                var mdp = brStaff.readLine();
                 var poste = brStaff.readLine();
+                var mdp = brStaff.readLine();
                 
                 List<String> materiels = new ArrayList<>();
                 String mat;
-                while ((mat = br.readLine()) != null){
+                while ((mat = brStaff.readLine()) != null){
                     materiels.add(mat);
                 }
 
