@@ -13,6 +13,7 @@ public class HtmlGenerator {
         File f = new File("/D:/var/www/html/index.html");
         
         try {
+            
             BufferedWriter bw = new BufferedWriter (new FileWriter(f));
             bw.write("<html>\n" +
                     "    <h1>GoSecuri</h1>\n" +
