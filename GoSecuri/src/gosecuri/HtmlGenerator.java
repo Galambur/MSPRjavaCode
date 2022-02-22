@@ -10,7 +10,7 @@ public class HtmlGenerator {
     public static void generateIndexHtml(ArrayList<Staff> employes) throws Exception {
         employes.sort((Staff s1, Staff s2) -> s1.Nom.compareTo(s2.Nom));
         
-        File f = new File("/D:/var/www/html/index.html");
+        File f = new File("/var/www/html/index.html");
         
         try {
             
@@ -50,8 +50,7 @@ public class HtmlGenerator {
     public static String generateEmployeListeHtml(ArrayList<Staff> employes){
         var str = "";
         for (Staff emp : employes) {
-            String path = emp.PathHtml;
-            str += "<li><a href=\"" + path + "\">" + emp.Nom + " " + emp.Prenom + "</a></li>";
+            str += "<li><a href=\"" + emp.PathHtml + "\">" + emp.Nom + " " + emp.Prenom + "</a></li>";
         }
         return str;
     }
@@ -60,8 +59,8 @@ public class HtmlGenerator {
     
     
     // partie HTML employe
-    public static void generateHtml(Staff staff) throws Exception {
-        File f = new File(staff.PathHtml);
+    public static void generateHtml(String directory, Staff staff) throws Exception {
+        File f = new File(directory + staff.PathHtml);
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(f));
             bw.write("<html>\n" +

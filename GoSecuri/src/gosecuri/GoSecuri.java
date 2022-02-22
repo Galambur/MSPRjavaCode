@@ -12,7 +12,7 @@ public class GoSecuri {
     
     public static ArrayList<Thread> threads = new ArrayList<Thread>();    
     public static ArrayList<Staff> employes = new ArrayList<Staff>();
-    public static String directory = "/D:/var/www/html/";
+    public static String directory = "/var/www/html/";
 
 
     public static void main(String[] args) throws Exception {
@@ -56,14 +56,12 @@ public class GoSecuri {
                     try {
                         var staff = generationFicheEmploye(strTempo);
                         
-                        System.out.println(staff.toString());
-                        
                         // boucle sur tous les staff pour créer le fichier html dans un dossier associé
-                        staff.SetPathHtml(directory + "staff/" + strTempo + "/" + strTempo + ".html");
-                        staff.SetPathImage(directory + "staff/" + strTempo + "/" + strTempo + ".jpg");
+                        staff.SetPathHtml("/staff/" + strTempo + "/" + strTempo + ".html");
+                        staff.SetPathImage("/staff/" + strTempo + "/" + strTempo + ".jpg");
                         
                         // generer les fiches salaries
-                        HtmlGenerator.generateHtml(staff);
+                        HtmlGenerator.generateHtml(directory, staff);
                     } catch (Exception ex) {
                         Logger.getLogger(GoSecuri.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -108,12 +106,10 @@ public class GoSecuri {
         BufferedReader br = new BufferedReader(new FileReader(file));
         
         while ((str = br.readLine()) != null) {
-            
-            
             var staff = generationFicheEmploye(str);
             
-            staff.SetPathHtml(directory + "staff/" + str + "/" + str + ".html");
-            staff.SetPathImage(directory + "staff/" + str + "/" + str + ".jpg");
+            staff.SetPathHtml("/staff/" + str + "/" + str + ".html");
+            staff.SetPathImage("/staff/" + str + "/" + str + ".jpg");
             
             employes.add(staff);
         }
