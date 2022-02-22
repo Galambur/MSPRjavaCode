@@ -6,12 +6,14 @@ public class Staff {
     public String Nom;
     public String Prenom;
     public String Poste;
+    public String Identifiant;
     public String Mdp;
     public List<String> Materiel;
     public String PathHtml;
     public String PathImage;
 
-    public Staff(String nom, String prenom, String poste, String mdp, List<String> materiels) {
+    public Staff(String identifiant, String nom, String prenom, String poste, String mdp, List<String> materiels) {
+        this.Identifiant = identifiant;
         this.Nom = nom;
         this.Prenom = prenom;
         this.Poste = poste;

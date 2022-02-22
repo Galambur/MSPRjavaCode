@@ -1,12 +1,16 @@
 package gosecuri;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.security.MessageDigest;
 
 public class GoSecuri {
     
@@ -40,9 +44,32 @@ public class GoSecuri {
             throw e;
         }
 
+        
+        // generation des mots de passe
+        createPasswordFile();
     }
     
-    public static void getInformations() throws Exception {
+    private static void createPasswordFile() throws Exception{
+        File f = new File("/etc/apache2/.htpasswd");
+        
+        BufferedWriter bw = new BufferedWriter (new FileWriter(f));
+        for(Staff s : employes){
+            bw.write(s.Identifiant + ":" + hashingPassword(s.Identifiant, s.Mdp));
+        }
+        bw.close();
+    }
+    
+    private static String hashingPassword(String user, String password) throws Exception{
+        var realm = "$apr1$";
+        byte b[] = java.security.MessageDigest.getInstance("MD5").digest((user + ":" + realm + ":" + password).getBytes());
+        java.math.BigInteger bi = new java.math.BigInteger(1, b);
+        String s = bi.toString(16);
+        while (s.length() < 32)
+            s = "0" + s; // La chaîne s contient le mot de passe chiffré
+        return realm + s + ".";
+    }
+    
+    private static void getInformations() throws Exception {
         File file = new File(directory + "staff.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
 
@@ -54,7 +81,7 @@ public class GoSecuri {
                 @Override
                 public void run() {
                     try {
-                        var staff = generationFicheEmploye(strTempo);
+                        var staff = createStaffFromName(strTempo);
                         
                         // boucle sur tous les staff pour créer le fichier html dans un dossier associé
                         staff.SetPathHtml("/staff/" + strTempo + "/" + strTempo + ".html");
@@ -75,9 +102,9 @@ public class GoSecuri {
         br.close();
     }
 
-    public static Staff generationFicheEmploye(String str) throws Exception {
+    private static Staff createStaffFromName(String identifiant) throws Exception {
         // str = le nom du staff
-        File staffFile = new File(directory + "/staff/" + str + "/" + str + ".txt");
+        File staffFile = new File(directory + "/staff/" + identifiant + "/" + identifiant + ".txt");
         BufferedReader brStaff = new BufferedReader(new FileReader(staffFile));
 
         var nom = brStaff.readLine();
@@ -93,10 +120,9 @@ public class GoSecuri {
             materiels.add(mat);
         }
 
-        var staff = new Staff(nom, prenom, poste, mdp, materiels);
+        var staff = new Staff(identifiant, nom, prenom, poste, mdp, materiels);
 
         brStaff.close();
-
         return staff;
     }
 
@@ -106,7 +132,7 @@ public class GoSecuri {
         BufferedReader br = new BufferedReader(new FileReader(file));
         
         while ((str = br.readLine()) != null) {
-            var staff = generationFicheEmploye(str);
+            var staff = createStaffFromName(str);
             
             staff.SetPathHtml("/staff/" + str + "/" + str + ".html");
             staff.SetPathImage("/staff/" + str + "/" + str + ".jpg");
