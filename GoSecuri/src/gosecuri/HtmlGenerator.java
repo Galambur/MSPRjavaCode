@@ -19,7 +19,7 @@ public class HtmlGenerator {
             bw.write("<html>\n"
                     + getHeader()
                     + "<h1>GoSecuri</h1>\n"
-                    + "<h2>Liste des employés</h2>"
+                    + "<h2>Liste des employes</h2>"
                     + "\n"
                     + "    <div class=\"liste-staff\">\n"
                     + "        <ul>\n" + generateEmployeListeHtml(employes)
