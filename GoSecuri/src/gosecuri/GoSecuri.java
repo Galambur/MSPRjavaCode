@@ -48,24 +48,31 @@ public class GoSecuri {
     }
 
     private static void createPasswordFile() throws Exception {
-        File f = new File("/etc/apache2/.htpasswd");
+        File f = new File("/etc/apache2/generatePassword.sh");
 
         BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+        
+        // on vide le fichier
+        bw.write("> /etc/apache2/.htpasswd\n");
+
+        // on rempli le fichier de nos employes
         for (Staff s : employes) {
-            bw.write(s.Identifiant + ":" + hashingPassword(s.Identifiant, s.Mdp));
+            bw.write("htpasswd -b /etc/apache2/.htpasswd " + s.Identifiant + " " + s.Mdp + "\n");
         }
         bw.close();
     }
 
-    private static String hashingPassword(String user, String password) throws Exception {
+    private static void hashingPassword(String user, String password) throws Exception {
+        /*//openssl passwd -apr1 myPassword
         var realm = "$apr1$";
-        byte b[] = java.security.MessageDigest.getInstance("MD5").digest((user + ":" + realm + ":" + password).getBytes());
+        byte b[] = java.security.MessageDigest.getInstance("MD5").digest((user + ":" + "" + ":" + password).getBytes());
         java.math.BigInteger bi = new java.math.BigInteger(1, b);
         String s = bi.toString(16);
         while (s.length() < 32) {
             s = "0" + s; // La chaîne s contient le mot de passe chiffré
         }
-        return realm + s + ".";
+        return realm + s + ".\n";*/
+
     }
 
     private static void getInformations() throws Exception {
