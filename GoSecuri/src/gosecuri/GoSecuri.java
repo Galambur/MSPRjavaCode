@@ -17,6 +17,8 @@ public class GoSecuri {
     public static String directory = "C:/Users/gaell/.jenkins/workspace/Webhook-Github/";
 
     public static void main(String[] args) throws Exception {
+        initMaterialList();
+        
         // generation des fichiers de staff
         try {
             // récupérer la liste de staff
@@ -60,20 +62,23 @@ public class GoSecuri {
         bw.close();
     }
 
-    private static void hashingPassword(String user, String password) throws Exception {
-        /*//openssl passwd -apr1 myPassword
-        var realm = "$apr1$";
-        byte b[] = java.security.MessageDigest.getInstance("MD5").digest((user + ":" + "" + ":" + password).getBytes());
-        java.math.BigInteger bi = new java.math.BigInteger(1, b);
-        String s = bi.toString(16);
-        while (s.length() < 32) {
-            s = "0" + s; // La chaîne s contient le mot de passe chiffré
+    private static void initMaterialList() throws Exception {
+        var listeMaterials = new  ArrayList<String>();
+        
+        File file = new File(directory + "liste.txt");
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String material;
+        // On parcours toute la liste des matérielles
+        while((material = br.readLine()) != null){
+            var mat = material.split("\t");
+            listeMaterials.add(mat[0]);
         }
-        return realm + s + ".\n";*/
-
+        Staff.MaterielFullList = listeMaterials;
+        br.close();
     }
-
     private static void getInformations() throws Exception {
+        
+        
         File file = new File(directory + "staff.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
 

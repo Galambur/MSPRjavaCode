@@ -147,8 +147,15 @@ public class HtmlGenerator {
 
     public static String generateMaterielListe(Staff staff) {
         var str = "";
-        for (String mat : staff.Materiel) {
-            str += "<li>" + mat + "<input type=\"checkbox\" checked disabled></li>";
+        
+        for (String mat : Staff.MaterielFullList) {
+                System.out.println(mat);
+                System.out.println(staff.Materiel);
+            if(staff.Materiel.contains(mat)){
+                str += "<li>" + mat + "<input type=\"checkbox\" checked disabled></li>";
+            } else {
+                str += "<li>" + mat + "<input type=\"checkbox\" disabled></li>";
+            }
         }
         return str;
     }

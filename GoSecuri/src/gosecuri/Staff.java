@@ -9,6 +9,7 @@ public class Staff {
     public String Identifiant;
     public String Mdp;
     public List<String> Materiel;
+    public static List<String> MaterielFullList;
     public String PathHtml;
     public String PathImage;
 
