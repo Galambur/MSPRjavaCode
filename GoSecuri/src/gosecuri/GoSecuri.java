@@ -14,7 +14,7 @@ public class GoSecuri {
 
     public static ArrayList<Thread> threads = new ArrayList<Thread>();
     public static ArrayList<Staff> employes = new ArrayList<Staff>();
-    public static String directory = "/var/www/html/";
+    public static String directory = "C:/Users/gaell/.jenkins/workspace/Webhook-Github/";
 
     public static void main(String[] args) throws Exception {
         // generation des fichiers de staff
@@ -46,7 +46,7 @@ public class GoSecuri {
     }
 
     private static void createPasswordFile() throws Exception {
-        File f = new File("/etc/apache2/generatePassword.sh");
+        File f = new File("D:/etc/apache2/generatePassword.sh");
 
         BufferedWriter bw = new BufferedWriter(new FileWriter(f));
         

@@ -11,7 +11,7 @@ public class HtmlGenerator {
     public static void generateIndexHtml(ArrayList<Staff> employes) throws Exception {
         employes.sort((Staff s1, Staff s2) -> s1.Nom.compareTo(s2.Nom));
 
-        File f = new File("/var/www/html/index.html");
+        File f = new File("C:\\Users\\gaell\\.jenkins\\workspace\\Webhook-Github\\index.html");
 
         try {
 
